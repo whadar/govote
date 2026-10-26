@@ -19,12 +19,12 @@
 <meta name="twitter:title" content="עם מי כדאי לי לדבר?">
 <meta name="twitter:description" content="כמה שאלות קצרות שעוזרות לבחור עם מי לדבר לפני יום הבחירות, ומה להגיד לכל אחד.">
 <meta name="twitter:image" content="https://govote.day/og.jpg">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Suez+One&family=Assistant:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500&family=Assistant:wght@400;600;700;800&display=swap">
 <style>
 /* Layout: a short list of yes/no cards on the right, your personal plan building up on the left. Same night palette as the simulation. */
 :root{
   --bg:#0B1020; --panel:#10172E; --line:#222D4B; --ink:#EAF0FA; --muted:#8B97B2; --conv:#FFC93C;
-  --f-display:"Suez One","Assistant",Georgia,serif; --f-body:"Assistant","Segoe UI",Arial,sans-serif;
+  --f-display:"Frank Ruhl Libre","Assistant",Georgia,serif; --f-body:"Assistant","Segoe UI",Arial,sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -32,14 +32,15 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);
   padding-block:28px 56px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 .wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
 a{color:var(--conv);text-underline-offset:3px}
-.back{font-size:14px;font-weight:700;text-decoration:none}
+.back{display:inline-block;font-size:14px;font-weight:700;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.back:hover{color:var(--ink)}
 .eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:700}
-h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.15;margin:6px 0 10px;text-wrap:balance}
-h1 span{color:var(--conv)}
+h1{font-family:var(--f-display);font-weight:500;font-size:clamp(40px,6vw,72px);line-height:1;margin:18px 0 14px;text-wrap:balance}
+.dotmark{color:var(--conv)}
 .lede{color:var(--muted);max-width:62ch;margin:0;font-size:17px}
 .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
 @media (max-width:860px){.cols{grid-template-columns:1fr}}
-h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0 0 12px}
+h2{font-family:var(--f-body);font-weight:800;font-size:22px;margin:0 0 12px}
 .qs{display:flex;flex-direction:column;gap:10px}
 .q{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:center}
 .q.on{border-color:var(--conv)}
@@ -62,15 +63,15 @@ h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0 0 12px}
 .item ul{margin:0;padding-inline-start:20px;font-size:15px}
 .msg{border-inline-start:3px solid var(--conv);background:var(--bg);border-radius:0 8px 8px 0;padding:8px 12px;font-size:15.5px}
 .row{display:flex;gap:8px;flex-wrap:wrap}
-.btn{background:var(--conv);color:#1A1405;border:0;border-radius:8px;padding:7px 14px;font:700 14px var(--f-body);cursor:pointer}
+.btn{background:var(--conv);color:#1A1405;border:0;border-radius:999px;padding:8px 16px;font:700 14px var(--f-body);cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .note{font-size:13.5px;color:var(--muted);margin:0}
 .toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 20px;border-radius:999px;font-weight:700;z-index:9}
 
 .how{display:flex;flex-direction:column;gap:44px;border-top:1px solid var(--line);padding-top:36px;max-width:860px}
-.howh{font-size:30px;margin:0}
+.howh{font-family:var(--f-display);font-weight:500;font-size:clamp(32px,4vw,44px);margin:0}
 .gsec{display:flex;flex-direction:column;gap:16px}
-.gh{font-family:var(--f-display);font-weight:400;font-size:24px;line-height:1.3;margin:0}
+.gh{font-family:var(--f-body);font-weight:800;font-size:22px;line-height:1.3;margin:0}
 .how h4{font-size:17px;margin:0 0 6px}
 .how p{margin:0;line-height:1.7}
 .gcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -84,7 +85,7 @@ h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0 0 12px}
 .gsteps q{display:block;margin-top:8px;padding:8px 14px;border-inline-start:3px solid var(--conv);background:var(--panel);border-radius:0 8px 8px 0;font-size:16px;quotes:"״" "״"}
 .gscript{display:flex;flex-direction:column;gap:12px}
 .gscript p{flex:1;font-size:16px}
-.gcopy{align-self:flex-start;background:var(--conv);color:#1A1405;border:0;border-radius:8px;padding:7px 14px;font:700 14px var(--f-body);cursor:pointer}
+.gcopy{align-self:flex-start;background:var(--conv);color:#1A1405;border:0;border-radius:999px;padding:8px 16px;font:700 14px var(--f-body);cursor:pointer}
 .gcheck{list-style:none;padding:0;margin:8px 0 0}
 .gcheck label{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;line-height:1.6}
 .gcheck input{width:19px;height:19px;margin-top:3px;accent-color:var(--conv);flex:none}
@@ -98,9 +99,8 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 <body>
 <div class="wrap">
   <header>
-    <a class="back" href="index.html">→ חזרה להדמיה</a>
-    <div class="eyebrow" style="margin-top:14px">הפעם כולם יוצאים להצביע</div>
-    <h1>עם מי <span>כדאי לי לדבר?</span></h1>
+    <a class="back" href="index.html">חזרה להדמיה</a>
+    <h1>עם מי כדאי לי לדבר<span class="dotmark">?</span></h1>
     <p class="lede">חמש שאלות על האנשים סביבך. בסוף מקבלים רשימה מסודרת: עם מי להתחיל, מה להגיד, ובמה אפשר לעזור. אין צורך לדעת למי הם מצביעים, ואין צורך לשאול.</p>
   </header>
 
