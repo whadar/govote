@@ -42,6 +42,8 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
 .cities button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .sharecity{display:block;margin:-4px 0 10px;background:none;border:0;padding:0;color:var(--muted);font:600 13px var(--f-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .sharecity:hover{color:var(--ink)}
+.citylink{display:inline-block;margin:-2px 0 10px;color:var(--ink);font-weight:700;font-size:14px;text-decoration:underline;text-decoration-color:var(--conv);text-underline-offset:4px}
+.citylink:hover{color:var(--conv)}
 .tag{margin:0 0 8px;color:var(--conv);font-weight:700;font-size:15px;line-height:1.4}
 .eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:700}
 h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;margin:4px 0 6px;text-wrap:balance}
@@ -136,13 +138,14 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
 </head>
 <body>
 <div class="app" dir="rtl" lang="he">
-  <div class="mhead"><div class="eyebrow">הדמיה · יום הבחירות</div><div class="mtitle">הפעם כולם יוצאים להצביע</div><div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div><div class="tag">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</div></div>
+  <div class="mhead"><div class="eyebrow">הדמיה · יום הבחירות</div><div class="mtitle">הפעם כולם יוצאים להצביע</div><div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div><div class="tag">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</div><a class="citylink" data-only="tlv" href="https://x.com/harnevo/status/2113695737812779436" target="_blank" rel="noopener noreferrer" hidden>בתל אביב? הצטרפו לפרויקט לעידוד הצבעה בעיר ↗</a></div>
   <aside class="side">
     <header>
       <div class="eyebrow">הדמיה · יום הבחירות</div>
       <h1>הפעם כולם יוצאים להצביע</h1>
       <div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div>
       <p class="tag">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p>
+      <a class="citylink" data-only="tlv" href="https://x.com/harnevo/status/2113695737812779436" target="_blank" rel="noopener noreferrer" hidden>בתל אביב? הצטרפו לפרויקט לעידוד הצבעה בעיר ↗</a>
     </header>
 
     <div>
@@ -507,6 +510,7 @@ function showPop(i,px,py){picked=i;const cur=stateFor(shownK),talks=cur.att.filt
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeTip();hidePop();}});
 function setCity(id){setPlay(false);city=CITIES[id];T0=city.T0;E_TLV=city.E;PER=E_TLV/N;
   document.querySelectorAll(".cities button").forEach(b=>b.setAttribute("aria-selected",b.dataset.city===id));
+  document.querySelectorAll("[data-only]").forEach(el=>el.hidden=el.dataset.only!==id);
   $("#howCity").textContent=`כל נקודה במפה מייצגת כ ${fmt(PER)} תושבים, מתוך ${city.eSrc} בעלי זכות בחירה ${city.in} בבחירות 2022. לכל אחד כ 8 חברים, כמעט כולם שכנים קרובים, ומעטים עם חבר בצד השני של העיר. כל מי שמצביע מדבר פעם אחת עם מספר החברים שבחרתם מבין אלה שבבית, וכל שיחה מצליחה בסיכוי שבהגדרות. בהגדרות אפשר גם לקבוע איזה חלק מהמצביעים מדבר עם חברים בכלל.`;
   net=gen(seed);st0=initState(net,U);cache=new Map();view={s:1,tx:0,ty:0};closeTip();resize();snap(shownK);}
 
