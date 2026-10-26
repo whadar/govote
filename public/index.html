@@ -30,7 +30,7 @@ h1{font-family:"Frank Ruhl Libre",var(--f-display);font-weight:500;font-size:cla
 .body b{font-weight:800;font-variant-numeric:tabular-nums}
 #big,#addBig{color:var(--conv)}
 .inl{display:inline-flex;align-items:center;vertical-align:middle;margin:0 4px;padding:3px;border-radius:999px;background:#2A2614;border:1px solid rgba(255,201,60,.35);text-shadow:none}
-.inl button{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:0;background:transparent;color:var(--conv);cursor:pointer;padding:0}
+.inl button{-webkit-appearance:none;appearance:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:0;background:transparent;color:var(--conv);cursor:pointer;padding:0}
 .inl button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
 .inl button:hover{background:rgba(255,201,60,.18)}
 .inl button:active{background:var(--conv);color:#1A1405}
@@ -158,7 +158,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
     <h1>הפעם כולם יוצאים להצביע<span class="dotmark">.</span></h1>
     <p class="lead">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p>
     <p class="body">ב 2022 הצביעו <b id="t0">59.6%</b> מבעלי זכות הבחירה <span id="cityIn">בתל אביב יפו</span>. אם כל אחד ידבר עם
-      <span class="inl"><button id="kMinus" aria-label="פחות חברים"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" /></svg></button><output id="ko" aria-live="polite">0</output><button id="kPlus" aria-label="יותר חברים"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" /></svg></button></span>
+      <span class="inl"><button id="kMinus" aria-label="פחות חברים"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button><output id="ko" aria-live="polite">0</output><button id="kPlus" aria-label="יותר חברים"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></span>
       <span id="unit">חברים</span> שעוד בבית, ההצבעה תגיע ל <b id="big">59.6%</b>, עוד <b id="addBig">0</b> מצביעים. <b>לחצו על נקודה</b> במפה כדי לראות מי זה.</p>
     <p class="fine">הדמיה על רשת חברים שבה לכל אחד כ 8 חברים, רובם שכנים, בהנחה ש<span id="assume">רבע מהשיחות מצליחות</span>. <button class="info" data-tip="start" aria-label="מאיפה המספרים">i</button></p>
     <div class="mlegend" aria-hidden="true"><span><i class="dot" style="background:var(--vote)"></i>הצביעו</span><span><i class="dot" style="background:var(--conv)"></i>השתכנעו</span><span><i class="dot" style="border:1.5px solid var(--home)"></i>עדיין בבית</span></div>
