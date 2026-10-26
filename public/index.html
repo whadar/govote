@@ -30,7 +30,17 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
 @media (max-width:820px){
   body{overflow:auto}
   .app{height:auto;grid-template-columns:1fr}
-  .stage{order:-1;height:58svh;min-height:360px}
+  .app{display:flex;flex-direction:column;gap:16px;background:var(--panel)}
+  .side{display:contents}
+  .side>*{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+  .side>.bubble{padding:10px 12px}
+  .mhead{order:0}
+  .numblock{order:1;padding-top:16px}
+  .leadline{order:2;margin:8px 0 14px}
+  .stage{order:3;height:58svh;min-height:360px;flex:none}
+  .side>*:not(.numblock):not(.leadline):not(header){order:4}
+  .side>.control{padding-top:18px}
+  .side>details:last-of-type{padding-bottom:28px}
   .mhead{display:block;order:-2;padding-block:14px 10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));background:var(--panel);border-bottom:1px solid var(--line)}
   .mtitle{font-family:var(--f-display);font-size:22px;line-height:1.15;margin-top:2px}
   .side header{display:none}
@@ -54,7 +64,7 @@ h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;m
 .sub b{color:var(--conv);font-weight:700}
 .control{display:flex;flex-direction:column;gap:12px}
 .qline{font-weight:700;font-size:16px}
-.leadline{margin:-6px 0 0;font-size:17px;line-height:2.1}
+.leadline{margin:0;font-size:17px;line-height:2.1}
 .inl{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;margin:0 4px}
 .inl button{width:30px;height:30px;border-radius:50%;border:1px solid var(--conv);background:transparent;color:var(--conv);font:700 18px/1 var(--f-body);cursor:pointer;padding:0}
 .inl button:hover{background:var(--conv);color:#1A1405}
@@ -155,12 +165,11 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
       <h1>הפעם כולם יוצאים להצביע</h1>
       <div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div>
     </header>
-    <p class="tag leadline">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע. נניח שכל אחד ידבר עם <span class="inl"><button id="kMinus" aria-label="פחות חברים">−</button><output id="ko">0</output><button id="kPlus" aria-label="יותר חברים">+</button></span> <span id="unit">חברים</span></p>
-
-    <div>
+    <div class="numblock">
       <div class="numrow"><div class="big" id="big">59.6<small>%</small></div><button class="info" data-tip="start" aria-label="מאיפה נקודת הפתיחה">i</button></div>
       <div class="sub" id="sub"></div>
     </div>
+    <p class="tag leadline">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע. נניח שכל אחד ידבר עם <span class="inl"><button id="kMinus" aria-label="פחות חברים">−</button><output id="ko">0</output><button id="kPlus" aria-label="יותר חברים">+</button></span> <span id="unit">חברים</span></p>
 
     <div class="control">
       <div class="assume" id="assume"></div>
