@@ -52,6 +52,32 @@ h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0 0 12px}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .note{font-size:13.5px;color:var(--muted);margin:0}
 .toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 20px;border-radius:999px;font-weight:700;z-index:9}
+
+.how{display:flex;flex-direction:column;gap:44px;border-top:1px solid var(--line);padding-top:36px;max-width:860px}
+.howh{font-size:30px;margin:0}
+.gsec{display:flex;flex-direction:column;gap:16px}
+.gh{font-family:var(--f-display);font-weight:400;font-size:24px;line-height:1.3;margin:0}
+.how h4{font-size:17px;margin:0 0 6px}
+.how p{margin:0;line-height:1.7}
+.gcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.gcards{grid-template-columns:1fr}}
+.gcard,.gscript{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.gcard.soft{background:transparent;border-style:dashed}
+.gtag{display:inline-block;font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin-bottom:10px;align-self:flex-start}
+.gsteps{list-style:none;counter-reset:st;padding:0;margin:0;display:flex;flex-direction:column;gap:22px}
+.gsteps li{counter-increment:st;display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:14px}
+.gsteps li::before{content:counter(st);grid-row:span 3;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:800}
+.gsteps q{display:block;margin-top:8px;padding:8px 14px;border-inline-start:3px solid var(--conv);background:var(--panel);border-radius:0 8px 8px 0;font-size:16px;quotes:"״" "״"}
+.gscript{display:flex;flex-direction:column;gap:12px}
+.gscript p{flex:1;font-size:16px}
+.gcopy{align-self:flex-start;background:var(--conv);color:#1A1405;border:0;border-radius:8px;padding:7px 14px;font:700 14px var(--f-body);cursor:pointer}
+.gcheck{list-style:none;padding:0;margin:8px 0 0}
+.gcheck label{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;line-height:1.6}
+.gcheck input{width:19px;height:19px;margin-top:3px;accent-color:var(--conv);flex:none}
+.gcheck input:checked+span{color:var(--muted);text-decoration:line-through}
+.gprog{margin-top:10px;font-weight:700;font-size:14px}
+.gsmall{font-size:14px;color:var(--muted);line-height:1.7;margin:0}
+.gsmall b{color:var(--ink)}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--conv);outline-offset:2px}
 </style>
 </head>
@@ -73,6 +99,38 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     <section class="plan" aria-live="polite">
       <h2>הרשימה שלך</h2>
       <div id="plan"></div>
+    </section>
+  </div>
+
+  <div class="how">
+    <h2 class="howh">איך מדברים</h2>
+    <section class="gsec">
+      <h3 class="gh">ארבעה צעדים לשיחה טובה</h3>
+      <ol class="gsteps">
+        <li><h4>לפתוח בלי מבחן ובלי האשמה</h4><p>לשאול בנחת אם האדם מתכנן להצביע, ולתת מקום לתשובה לא בטוחה.</p><q>כבר החלטת אם לצאת להצביע? אם משהו מקשה, אפשר לדבר על זה, רק אם מתאים לך.</q></li>
+        <li><h4>להבין מה עומד בדרך</h4><p>קושי להגיע, התלבטות וחוסר אמון הם דברים שונים. קודם מקשיבים, אחר כך מציעים. מי שמסרב בבירור, מכבדים.</p><q>מה הדבר העיקרי שמקשה עליך הפעם?</q></li>
+        <li><h4>להפוך כוונה לתוכנית</h4><p>שעה, מיקום הקלפי, דרך הגעה וחזרה. תכנון קונקרטי העלה הצבעה בניסוי אמריקאי. <a href="index.html#s6">[6]</a></p><q>באיזו שעה נוח לך? מאיפה תצא? יש לך דרך לחזור?</q></li>
+        <li><h4>להציע משהו מוגדר ולעמוד בו</h4><p>לבדוק יחד את מיקום הקלפי, לתאם טרמפ, או תזכורת אחת בהסכמה.</p><q>נבדוק יחד איפה הקלפי? מתאים שאזכיר לך בשעה שקבענו?</q></li>
+      </ol>
+      <div class="gcard soft"><h4>גם מי שתמיד הצביע יכול להזדקק לעזרה הפעם</h4><p>שינוי בבריאות, בניידות או במגורים יכול לעצור גם מצביע ותיק. כדאי להציע ליווי או נסיעה גם למי שנראה עצמאי, ולשאול מה הוא רוצה. <a href="index.html#s9">[9]</a> <a href="index.html#s10">[10]</a></p></div>
+    </section>
+<section class="gsec">
+      <h3 class="gh">הודעות מוכנות לשליחה</h3>
+      <div class="gcards two">
+        <div class="gscript"><span class="gtag">פתיחת שיחה</span><p id="msg1">היי, כבר תכננת אם ומתי להגיע לקלפי? אם משהו מקשה על ההגעה, אשמח לבדוק יחד מה יכול לעזור. אין צורך לספר לי למי אתה מצביע.</p><button class="gcopy" type="button" data-msg="msg1">העתקת ההודעה</button></div>
+        <div class="gscript"><span class="gtag">אחרי שביקשו עזרה</span><p id="msg2">בוא נתאם מה נוח לך: שעה, מיקום הקלפי ואיך מגיעים וחוזרים. אם תרצה, אשלח תזכורת בשעה שנקבע.</p><button class="gcopy" type="button" data-msg="msg2">העתקת ההודעה</button></div>
+      </div>
+      <div class="gcard"><h4>רשימת הגעה, למי שביקש עזרה</h4>
+        <ul class="gcheck">
+          <li><label><input type="checkbox" id="c1"><span>האדם רוצה להצביע ורוצה את העזרה שהוצעה.</span></label></li>
+          <li><label><input type="checkbox" id="c2"><span>מיקום הקלפי וההוראות נבדקו במקור רשמי. <a href="https://www.gov.il/he/departments/topics/faq-26" target="_blank" rel="noopener noreferrer">ועדת הבחירות ↗</a></span></label></li>
+          <li><label><input type="checkbox" id="c3"><span>נקבעו שעה ודרך הגעה וחזרה.</span></label></li>
+          <li><label><input type="checkbox" id="c4"><span>נבדק מה צריך להביא, ואם נדרשת נגישות.</span></label></li>
+          <li><label><input type="checkbox" id="c5"><span>נקבע מי עוזר, ואם האדם רוצה תזכורת.</span></label></li>
+        </ul>
+        <div class="gprog" id="gprog" aria-live="polite">0 מתוך 5</div>
+      </div>
+      <p class="gsmall"><b>כבוד לבחירה הוא חלק מהעזרה.</b> אין צורך בתמונה מהקלפי או בדיווח על הפתק. עזרה בהגעה אינה רשות להיכנס עם אדם אל מאחורי הפרגוד.</p>
     </section>
   </div>
 </div>
@@ -137,6 +195,10 @@ function render(){
 }
 let tt;function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2400);}
 function copy(text,ok){try{navigator.clipboard.writeText(text).then(()=>toast(ok),()=>toast("סמנו והעתיקו ידנית"));}catch(_){toast("סמנו והעתיקו ידנית");}}
+// guide below the plan: ready messages and the arrival checklist
+document.querySelectorAll("[data-msg]").forEach(b=>b.addEventListener("click",()=>copy(document.getElementById(b.dataset.msg).textContent,"ההודעה הועתקה")));
+const gchecks=[...document.querySelectorAll(".gcheck input")];
+gchecks.forEach(c=>c.addEventListener("change",()=>{$("#gprog").textContent=`${gchecks.filter(x=>x.checked).length} מתוך 5`;}));
 render();
 </script>
 </body>

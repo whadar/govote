@@ -222,35 +222,12 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
     </section>
 
     <section class="gsec">
-      <h3 class="gh">ארבעה צעדים לשיחה טובה</h3>
-      <ol class="gsteps">
-        <li><h4>לפתוח בלי מבחן ובלי האשמה</h4><p>לשאול בנחת אם האדם מתכנן להצביע, ולתת מקום לתשובה לא בטוחה.</p><q>כבר החלטת אם לצאת להצביע? אם משהו מקשה, אפשר לדבר על זה, רק אם מתאים לך.</q></li>
-        <li><h4>להבין מה עומד בדרך</h4><p>קושי להגיע, התלבטות וחוסר אמון הם דברים שונים. קודם מקשיבים, אחר כך מציעים. מי שמסרב בבירור, מכבדים.</p><q>מה הדבר העיקרי שמקשה עליך הפעם?</q></li>
-        <li><h4>להפוך כוונה לתוכנית</h4><p>שעה, מיקום הקלפי, דרך הגעה וחזרה. תכנון קונקרטי העלה הצבעה בניסוי אמריקאי. <a href="#s6">[6]</a></p><q>באיזו שעה נוח לך? מאיפה תצא? יש לך דרך לחזור?</q></li>
-        <li><h4>להציע משהו מוגדר ולעמוד בו</h4><p>לבדוק יחד את מיקום הקלפי, לתאם טרמפ, או תזכורת אחת בהסכמה.</p><q>נבדוק יחד איפה הקלפי? מתאים שאזכיר לך בשעה שקבענו?</q></li>
-      </ol>
+      <h3 class="gh">איך מדברים עם חבר?</h3>
+      <p>צעדים לשיחה טובה, הודעות מוכנות לשליחה ורשימת הגעה, בדף שעוזר לבחור עם מי לדבר.</p>
       <a class="cta" href="list.html" style="max-width:420px">עם מי כדאי לי לדבר? בואו נבנה רשימה ←</a>
-      <div class="gcard soft"><h4>גם מי שתמיד הצביע יכול להזדקק לעזרה הפעם</h4><p>שינוי בבריאות, בניידות או במגורים יכול לעצור גם מצביע ותיק. כדאי להציע ליווי או נסיעה גם למי שנראה עצמאי, ולשאול מה הוא רוצה. <a href="#s9">[9]</a> <a href="#s10">[10]</a></p></div>
     </section>
 
-    <section class="gsec">
-      <h3 class="gh">הודעות מוכנות לשליחה</h3>
-      <div class="gcards two">
-        <div class="gscript"><span class="gtag">פתיחת שיחה</span><p id="msg1">היי, כבר תכננת אם ומתי להגיע לקלפי? אם משהו מקשה על ההגעה, אשמח לבדוק יחד מה יכול לעזור. אין צורך לספר לי למי אתה מצביע.</p><button class="gcopy" type="button" data-copy="msg1">העתקת ההודעה</button></div>
-        <div class="gscript"><span class="gtag">אחרי שביקשו עזרה</span><p id="msg2">בוא נתאם מה נוח לך: שעה, מיקום הקלפי ואיך מגיעים וחוזרים. אם תרצה, אשלח תזכורת בשעה שנקבע.</p><button class="gcopy" type="button" data-copy="msg2">העתקת ההודעה</button></div>
-      </div>
-      <div class="gcard"><h4>רשימת הגעה, למי שביקש עזרה</h4>
-        <ul class="gcheck">
-          <li><label><input type="checkbox" id="c1"><span>האדם רוצה להצביע ורוצה את העזרה שהוצעה.</span></label></li>
-          <li><label><input type="checkbox" id="c2"><span>מיקום הקלפי וההוראות נבדקו במקור רשמי. <a href="https://www.gov.il/he/departments/topics/faq-26" target="_blank" rel="noopener noreferrer">ועדת הבחירות ↗</a></span></label></li>
-          <li><label><input type="checkbox" id="c3"><span>נקבעו שעה ודרך הגעה וחזרה.</span></label></li>
-          <li><label><input type="checkbox" id="c4"><span>נבדק מה צריך להביא, ואם נדרשת נגישות.</span></label></li>
-          <li><label><input type="checkbox" id="c5"><span>נקבע מי עוזר, ואם האדם רוצה תזכורת.</span></label></li>
-        </ul>
-        <div class="gprog" id="gprog" aria-live="polite">0 מתוך 5</div>
-      </div>
-      <p class="gsmall"><b>כבוד לבחירה הוא חלק מהעזרה.</b> אין צורך בתמונה מהקלפי או בדיווח על הפתק. עזרה בהגעה אינה רשות להיכנס עם אדם אל מאחורי הפרגוד.</p>
-    </section>
+    
 
     <section class="gsec">
       <h3 class="gh">מה המחקר אומר</h3>
@@ -519,12 +496,6 @@ function setCity(id){setPlay(false);city=CITIES[id];T0=city.T0;E_TLV=city.E;PER=
   net=gen(seed);st0=initState(net,U);cache=new Map();view={s:1,tx:0,ty:0};closeTip();resize();snap(shownK);}
 
 /* ---------- guide ---------- */
-const gchecks=[...document.querySelectorAll(".gcheck input")];
-gchecks.forEach(c=>c.addEventListener("change",()=>{$("#gprog").textContent=`${gchecks.filter(x=>x.checked).length} מתוך 5`;}));
-let gt;function gtoast(t){const el=$("#gtoast");el.textContent=t;el.hidden=false;clearTimeout(gt);gt=setTimeout(()=>el.hidden=true,2600);}
-document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const el=document.getElementById(b.dataset.copy),text=el.textContent;
-  const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);gtoast("הטקסט סומן, אפשר להעתיק");};
-  try{navigator.clipboard.writeText(text).then(()=>gtoast("ההודעה הועתקה"),sel);}catch(_){sel();}}));
 // The city lives in the link as #tlv, #haifa, #modiin or #raanana.
 const ARTIFACT_URL="https://claude.ai/artifact/LC6ZPqoZmTLRC1hExQ6ZUj";
 let cityId="tlv";
