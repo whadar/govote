@@ -42,7 +42,11 @@ h1{font-family:"Frank Ruhl Libre",var(--f-display);font-weight:500;font-size:cla
 .guide .cta{color:#1A1405;text-decoration:none;align-self:flex-start}
 .play{background:none;border:0;padding:6px 0;color:var(--muted);font:700 14.5px var(--f-body);cursor:pointer}
 .play:hover{color:var(--ink)}
-.panel{border:1px solid var(--line);border-radius:16px;padding:14px 16px;max-width:380px;background:rgba(16,23,46,.5)}
+.row{position:relative}
+.panel{position:absolute;z-index:30;top:calc(100% + 8px);right:0;width:min(360px,calc(100vw - 40px));border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:#141C38;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.play{border:1px solid var(--line)!important;border-radius:999px!important;padding:10px 18px!important;color:var(--ink)!important}
+.play[aria-expanded="true"]{border-color:var(--conv)!important}
+.panel.up{top:auto;bottom:calc(100% + 8px)}
 .ptitle,.pnote{font-size:13px;color:var(--muted);font-weight:700}
 .pnote{font-weight:400;margin-top:6px}
 .mapcol{position:sticky;top:0;height:100svh;display:flex;flex-direction:column}
@@ -53,7 +57,7 @@ h1{font-family:"Frank Ruhl Libre",var(--f-display);font-weight:500;font-size:cla
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-inline-end:6px;vertical-align:0}
 .stage:fullscreen{background:var(--bg)}
 .below{width:100%;max-width:720px;display:flex;flex-direction:column;gap:22px;padding-block:40px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.chartbox{display:flex;flex-direction:column;gap:8px;width:100%;max-width:440px;align-self:center}
+.chartbox{display:flex;flex-direction:column;gap:8px;width:100%;max-width:440px;margin:14px 0 6px}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
 .takeaway{margin:0;font-size:16px;line-height:1.6;text-align:center}
 .takeaway b{font-weight:800}
@@ -165,9 +169,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
     <div class="mlegend" aria-hidden="true"><span><i class="dot" style="background:var(--vote)"></i>הצביעו</span><span><i class="dot" style="background:var(--conv)"></i>השתכנעו</span><span><i class="dot" style="border:1.5px solid var(--home)"></i>עדיין בבית</span></div>
     <div class="row">
       <a class="cta" href="list.html">עזרו לי לבחור עם מי לדבר</a>
-      <button class="play" id="run">▶ הראו מ 0 עד 5 חברים</button>
-    </div>
-    <div class="panel">
+      <button class="play" id="cityBtn" aria-expanded="false" aria-controls="cityPanel">שנה עיר</button>
+      <div class="panel" id="cityPanel" hidden>
       <div class="ptitle">בחרו עיר</div>
       <div class="cities" role="tablist" aria-label="עיר">
         <button role="tab" data-city="tlv"><i class="cdot"></i>תל אביב יפו<span>59.6%</span></button>
@@ -176,6 +179,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
         <button role="tab" data-city="raanana"><i class="cdot"></i>רעננה<span>66.6%</span></button>
       </div>
       <div class="pnote">אחוז ההצבעה ב 2022</div>
+    </div>
     </div>
   </section>
   <section class="mapcol">
@@ -196,10 +200,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
   </section>
  </div>
   <section class="below">
-    <div class="chartbox">
-      <div class="chart" id="chart"></div>
-      <p class="takeaway" id="takeaway"></p>
-    </div>
     <div class="more">
     <details>
       <summary>הגדרות</summary>
@@ -210,10 +210,13 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
     </details>
     <details>
       <summary>איך זה עובד</summary>
+      <div class="chartbox">
+      <div class="chart" id="chart"></div>
+      <p class="takeaway" id="takeaway"></p>
+    </div>
       <p id="howCity">כל נקודה במפה מייצגת כ 112 תושבים, מתוך כ 448 אלף בעלי זכות בחירה בתל אביב יפו בבחירות 2022. לכל אחד כ 8 חברים, כמעט כולם שכנים קרובים, ומעטים עם חבר בצד השני של העיר. כל מי שמצביע מדבר פעם אחת עם מספר החברים שבחרתם מבין אלה שבבית, וכל שיחה מצליחה בסיכוי שבהגדרות. בהגדרות אפשר גם לקבוע איזה חלק מהמצביעים מדבר עם חברים בכלל.</p>
       <p>העקומה נעצרת לפני 100% משתי סיבות: חלק מבעלי זכות הבחירה מחוץ להישג יד, ולכל מצביע יש רק כמה חברים בבית לדבר איתם. מנדט שווה כ 38 אלף קולות.</p>
     </details>
-      <a class="toguide" href="#guide">המספרים והמחקר שמאחורי ההדמיה</a>
     </div>
     <div class="bubble" id="bubble" hidden></div>
   </section>
@@ -470,9 +473,16 @@ function goTo(kk,done){$("#pop").hidden=true;picked=-1;
 function setK(kk){kk=Math.max(0,Math.min(KMAX,kk));if(kk!==shownK)goTo(kk);}
 
 let playing=false;
-function setPlay(on){playing=on;$("#run").hidden=on;$("#run").textContent="▶ הראו שוב מ 0 עד 5 חברים";}
-$("#run").addEventListener("click",()=>{if(playing){setPlay(false);return;}setPlay(true);snap(0);
-  const next=()=>{if(!playing)return;if(shownK>=KMAX){setPlay(false);return;}goTo(shownK+1,()=>setTimeout(next,fast()?0:700));};setTimeout(next,fast()?0:700);});
+function setPlay(on){playing=on;}
+// loops 0 to 5 and back to 0 until someone changes the number or the city
+function startLoop(){setPlay(true);snap(0);
+  const next=()=>{if(!playing)return;if(shownK>=KMAX){setTimeout(()=>{if(!playing)return;snap(0);setTimeout(next,fast()?0:900);},fast()?0:1800);return;}goTo(shownK+1,()=>setTimeout(next,fast()?0:700));};
+  setTimeout(next,fast()?0:700);}
+function closeCities(){$("#cityPanel").hidden=true;$("#cityBtn").setAttribute("aria-expanded","false");}
+$("#cityBtn").addEventListener("click",e=>{e.stopPropagation();const pnl=$("#cityPanel"),open=pnl.hidden;pnl.hidden=!open;$("#cityBtn").setAttribute("aria-expanded",open);
+  if(open){pnl.classList.remove("up");const r=pnl.getBoundingClientRect();if(r.bottom>innerHeight-8&&r.height+80<$("#cityBtn").getBoundingClientRect().top)pnl.classList.add("up");}});
+document.addEventListener("click",e=>{if(!e.target.closest("#cityPanel,#cityBtn"))closeCities();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCities();});
 $("#kMinus").addEventListener("click",()=>{setPlay(false);setK(shownK-1);});
 $("#kPlus").addEventListener("click",()=>{setPlay(false);setK(shownK+1);});
 document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(e.key==="ArrowUp"||e.key==="+"){setPlay(false);setK(shownK+1);}if(e.key==="ArrowDown"||e.key==="-"){setPlay(false);setK(shownK-1);}});
@@ -523,11 +533,11 @@ function setCity(id){setPlay(false);city=CITIES[id];T0=city.T0;E_TLV=city.E;PER=
 // The city lives in the link as #tlv, #haifa, #modiin or #raanana.
 const ARTIFACT_URL="https://claude.ai/artifact/LC6ZPqoZmTLRC1hExQ6ZUj";
 let cityId="tlv";
-document.querySelectorAll(".cities button").forEach(b=>b.addEventListener("click",()=>{cityId=b.dataset.city;setCity(cityId);try{history.replaceState(null,"","#"+cityId);}catch(_){}}));
+document.querySelectorAll(".cities button").forEach(b=>b.addEventListener("click",()=>{closeCities();cityId=b.dataset.city;setCity(cityId);try{history.replaceState(null,"","#"+cityId);}catch(_){}}));
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(CITIES[h]&&h!==cityId){cityId=h;setCity(h);}});
 const h0=(location.hash||"").slice(1);cityId=CITIES[h0]?h0:"tlv";setCity(cityId);
 // play the 0 to 5 run once on arrival, so the first thing people see is the city filling up
-setTimeout(()=>{if(!playing&&shownK===0)$("#run").click();},900);
+setTimeout(()=>{if(!playing&&shownK===0)startLoop();},900);
 </script>
 
 </body>
