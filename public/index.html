@@ -54,6 +54,8 @@ h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;m
 .sub b{color:var(--conv);font-weight:700}
 .control{display:flex;flex-direction:column;gap:12px}
 .qline{font-weight:700;font-size:16px}
+.stepper.intro{margin-top:-8px;flex-wrap:wrap;row-gap:6px}
+.stepper.intro .qline:first-child{flex-basis:100%;font-size:17px}
 .stepper{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
 .stepper .qline{white-space:nowrap;font-size:15.5px}
 .assume{font-size:13px;color:var(--muted)}
@@ -151,6 +153,12 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
       <div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div>
       <p class="tag">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p>
     </header>
+    <div class="stepper intro"><span class="qline">נניח שכל אחד ידבר עם</span>
+        <button id="kMinus" aria-label="פחות חברים">−</button>
+        <output id="ko">0</output>
+        <button id="kPlus" aria-label="יותר חברים">+</button>
+        <span class="qline" id="unit">חברים</span>
+      </div>
 
     <div>
       <div class="numrow"><div class="big" id="big">59.6<small>%</small></div><button class="info" data-tip="start" aria-label="מאיפה נקודת הפתיחה">i</button></div>
@@ -158,12 +166,6 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
     </div>
 
     <div class="control">
-      <div class="stepper"><span class="qline">כל אחד מדבר עם</span>
-        <button id="kMinus" aria-label="פחות חברים">−</button>
-        <output id="ko">0</output>
-        <button id="kPlus" aria-label="יותר חברים">+</button>
-        <span class="qline" id="unit">חברים</span>
-      </div>
       <div class="assume" id="assume"></div>
       <button class="play" id="run">הראו מה קורה מ 0 עד 5 חברים</button>
       <a class="cta" href="list.html">עזרו לי לבחור עם מי לדבר ←</a>
@@ -418,7 +420,7 @@ function draw(fx){
 function seatsText(m){const r=Math.round(m);if(m<.95)return `כ ${m.toFixed(1)} מנדט`;if(r===1)return m<1?"כמעט מנדט אחד":"כמנדט אחד";return m<r?`כמעט ${r} מנדטים`:`כ ${r} מנדטים`;}
 function showNumbers(){const t=share(state),d=t-share(st0),add=d*E_TLV;
   $("#big").innerHTML=`${(t*100).toFixed(1)}<small>%</small>`;
-  $("#sub").innerHTML=add>0?`<b>+${fmt(add/1000)} אלף מצביעים</b> · ${seatsText(add/SEAT)}`:`אחוז ההצבעה ${city.in} ב 2022`;}
+  $("#sub").innerHTML=add>0?`<b>+${fmt(add/1000)} אלף מצביעים</b>`:`אחוז ההצבעה ${city.in} ב 2022`;}
 function drawChart(){
   const pts=[...Array(KMAX+1).keys()].map(kk=>[kk,stateFor(kk).share]),W=300,H=150,L=32,R=6,T=10,B=22,x=v=>L+v/KMAX*(W-L-R),y=v=>T+(1-(v-.5)/.5)*(H-T-B),ceil=1-Math.round(U*N)/N;
   let g=`<svg viewBox="0 0 ${W} ${H+14}" direction="ltr" role="img" aria-label="אחוז הצבעה לפי מספר החברים שכל אחד מדבר איתם">`;
