@@ -68,11 +68,18 @@ input[type=range]{width:100%;accent-color:var(--accent);margin-top:6px}
 .tools{position:absolute;top:16px;left:16px;display:flex;gap:6px}
 .tools button{min-width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:rgba(16,23,46,.85);color:var(--ink);font:600 17px var(--f-body);cursor:pointer;padding:0 10px}
 .tools button.w{font-size:13px}
+.mlegend{display:none}
+/* phones: the map sits behind the text, like a living background; taps on empty space reach the map */
 @media (max-width:900px){
-  .split{grid-template-columns:1fr;min-height:0}
-  .intro{max-width:none;padding:32px max(20px,env(safe-area-inset-right,0px)) 20px max(20px,env(safe-area-inset-left,0px));gap:18px}
-  .mapcol{position:relative;height:72svh;min-height:400px}
-  .panel{max-width:none}
+  .split{display:block;position:relative;min-height:100svh}
+  .mapcol{position:absolute;inset:14svh 0 0 0;height:auto;z-index:0}
+  .stage canvas{opacity:.55}
+  .mapcol .legend,.tools{display:none}
+  .intro{position:relative;z-index:1;max-width:none;min-height:100svh;justify-content:flex-start;padding:max(56px,18svh) max(20px,env(safe-area-inset-right,0px)) 28px max(20px,env(safe-area-inset-left,0px));gap:18px;pointer-events:none;text-shadow:0 0 10px var(--bg),0 0 3px var(--bg),0 0 1px var(--bg)}
+  .intro a,.intro button,.intro .panel{pointer-events:auto}
+  .panel{max-width:none;background:rgba(11,16,32,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-shadow:none}
+  .mlegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+  .fine,.mlegend,.play{color:#C3CBDD}
 }
 .cities{display:flex;flex-direction:column;margin:8px 0 0}
 .cities button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-radius:8px;padding:7px 8px;color:var(--ink);font:700 15.5px var(--f-body);cursor:pointer;text-align:right}
@@ -151,6 +158,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
       <span class="inl"><button id="kMinus" aria-label="פחות חברים">−</button><output id="ko" aria-live="polite">0</output><button id="kPlus" aria-label="יותר חברים">+</button></span>
       <span id="unit">חברים</span> שעוד בבית, ההצבעה תגיע ל <b id="big">59.6%</b>, עוד <b id="addBig">0</b> מצביעים. <b>לחצו על נקודה</b> במפה כדי לראות מי זה.</p>
     <p class="fine">הדמיה על רשת חברים שבה לכל אחד כ 8 חברים, רובם שכנים, בהנחה ש<span id="assume">רבע מהשיחות מצליחות</span>. <button class="info" data-tip="start" aria-label="מאיפה המספרים">i</button></p>
+    <div class="mlegend" aria-hidden="true"><span><i class="dot" style="background:var(--vote)"></i>הצביעו</span><span><i class="dot" style="background:var(--conv)"></i>השתכנעו</span><span><i class="dot" style="border:1.5px solid var(--home)"></i>עדיין בבית</span></div>
     <div class="row">
       <a class="cta" href="list.html">עזרו לי לבחור עם מי לדבר</a>
       <button class="play" id="run">▶ הראו מ 0 עד 5 חברים</button>
