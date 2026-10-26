@@ -53,6 +53,9 @@ h1{font-family:"Frank Ruhl Libre",var(--f-display);font-weight:500;font-size:cla
 .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .cta{display:inline-block;background:var(--conv);color:#1A1405;border-radius:999px;padding:12px 24px;font-weight:800;font-size:16px;text-decoration:none}
 .cta:hover{filter:brightness(1.06)}
+button.cta{border:0;cursor:pointer;font-family:var(--f-body)}
+.cta2{display:inline-block;border:1.5px solid var(--conv);color:var(--conv);border-radius:999px;padding:10.5px 20px;font-weight:800;font-size:15.5px;text-decoration:none}
+.cta2:hover{background:var(--conv);color:#1A1405}
 .guide .cta{color:#1A1405;text-decoration:none;align-self:flex-start}
 .play{background:none;border:0;padding:6px 0;color:var(--muted);font:700 14.5px var(--f-body);cursor:pointer}
 .play:hover{color:var(--ink)}
@@ -98,7 +101,8 @@ input[type=range]{width:100%;accent-color:var(--accent);margin-top:6px}
   .mapcol .legend,.tools{display:none}
   .intro{position:relative;z-index:1;max-width:none;min-height:100svh;justify-content:flex-start;padding:max(56px,18svh) max(20px,env(safe-area-inset-right,0px)) 28px max(20px,env(safe-area-inset-left,0px));gap:18px;pointer-events:none;text-shadow:0 0 10px var(--bg),0 0 3px var(--bg),0 0 1px var(--bg)}
   .intro a,.intro button,.intro .panel,.intro h1,.intro p{pointer-events:auto}
-  .intro .cta,.intro .info,.intro .play{text-shadow:none}
+  .intro .cta,.intro .cta2,.intro .info,.intro .play{text-shadow:none}
+  .intro .cta2{background:var(--bg)}
   .panel{max-width:none;background:rgba(11,16,32,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-shadow:none}
   .mlegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
   .fine,.mlegend,.play{color:#C3CBDD}
@@ -178,11 +182,12 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
     <p class="lead">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p>
     <p class="body">ב 2022 הצביעו <b id="t0">59.6%</b> מבעלי זכות הבחירה <span id="cityIn">בתל אביב יפו</span>. אם כל אחד ידבר עם
       <span class="inl"><button id="kMinus" aria-label="פחות חברים"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button><output id="ko" aria-live="polite">0</output><button id="kPlus" aria-label="יותר חברים"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></span>
-      <span id="unit">חברים</span> שעוד בבית, ההצבעה תגיע ל <b id="big">59.6%</b>, עוד <b id="addBig">0</b> מצביעים. <b>לחצו על נקודה</b> במפה כדי לראות מי זה.</p>
+      <span id="unit">חברים</span> שעוד בבית, ההצבעה תגיע ל <b id="big">59.6%</b>, עוד <b id="addBig">0</b> מצביעים. במפה, הקווים הצהובים יוצאים <b>מכם</b> לחברים שלכם, ומהם הלאה.</p>
     <p class="fine">הדמיה על רשת חברים שבה לכל אחד כ 8 חברים, רובם שכנים, בהנחה ש<span id="assume">רבע מהשיחות מצליחות</span>. <button class="info" data-tip="start" aria-label="מאיפה המספרים">i</button></p>
     <div class="mlegend" aria-hidden="true"><span><i class="dot" style="background:var(--vote)"></i>הצביעו</span><span><i class="dot" style="background:var(--conv)"></i>השתכנעו</span><span><i class="dot" style="border:1.5px solid var(--home)"></i>עדיין בבית</span></div>
     <div class="row">
-      <a class="cta" href="list.html">עזרו לי לבחור עם מי לדבר</a>
+      <button class="cta" type="button" id="shareBtn">שלחו לחבר שילך להצביע</button>
+      <a class="cta2" href="list.html">צרו רשימה: עם מי לדבר</a>
       <button class="play" id="cityBtn" aria-expanded="false" aria-controls="cityPanel">שנה עיר</button>
       <div class="panel" id="cityPanel" hidden>
       <div class="ptitle">בחרו עיר</div>
@@ -371,7 +376,28 @@ const $=s=>document.querySelector(s),css=v=>getComputedStyle(document.documentEl
 const fmt=n=>Math.round(n).toLocaleString("he-IL");
 let q=.25,U=.12,seed=2026,net=gen(seed),st0=initState(net,U),state=[...st0],shownK=0;
 var cache=new Map();
-function stateFor(kk){if(!cache.has(kk)){const r=sim(net,st0,kk,q,seed+99);r.keys=new Set(r.att.map(([v,u])=>v*N+u));r.share=share(r.st);cache.set(kk,r);}return cache.get(kk);}
+function stateFor(kk){if(!cache.has(kk)){const r=sim(net,st0,kk,q,seed+99);r.keys=new Set(r.att.map(([v,u])=>v*N+u));r.share=share(r.st);
+  r.kids=new Map();r.by.forEach((v,u)=>{if(!r.kids.has(v))r.kids.set(v,[]);r.kids.get(v).push(u);});cache.set(kk,r);}return cache.get(kk);}
+// "you": a voter near the middle of the city whose friends, and their friends, come out to vote
+var ego=-1;
+// the cascade that starts with "you" alone, using the same calls and coins as the full run, so it only grows with k
+const egoCache=new Map();
+function egoTree(k){const key=ego+":"+k;if(egoCache.has(key))return egoCache.get(key);const st=[...st0],out=[],sd=seed+99;let front=[ego],round=0;
+  while(front.length&&round<30){const nx=[];for(const v of front){if(hash(sd,v,-2)>=nud)continue;let tried=0;for(const u of net.order[v]){if(tried>=k)break;if(st[u]===1)continue;tried++;
+    if(st[u]===0&&hash(sd,v,u)<q){st[u]=1;out.push([v,u,round]);nx.push(u);}}}front=nx;round++;}
+  egoCache.set(key,out);return out;}
+// "you" sits near the middle of the city. Like most people, you also have a few friends in other neighbourhoods,
+// so your conversations fly across the map like airline routes before spreading locally.
+function pickEgo(){const L=city.land,cx=L.reduce((a,p)=>a+p[0],0)/L.length,cy=L.reduce((a,p)=>a+p[1],0)/L.length,sd=seed+99;let best=-1,bd=1e9;
+  net.nodes.forEach((n,i)=>{if(st0[i]!==1)return;const d=Math.hypot(n.x-cx,n.y-cy);if(d<bd){bd=d;best=i;}});ego=best;egoCache.clear();if(ego<0)return;
+  const me=net.nodes[ego],far=[];
+  net.nodes.forEach((n,i)=>{if(st0[i]===0&&i!==ego&&Math.hypot(n.x-me.x,n.y-me.y)>120&&hash(sd,ego,i)<q)far.push(i);});
+  // spread the picks around you: sort by angle and take every few
+  far.sort((a,b)=>Math.atan2(net.nodes[a].y-me.y,net.nodes[a].x-me.x)-Math.atan2(net.nodes[b].y-me.y,net.nodes[b].x-me.x));
+  const picks=[];for(let j=0;j<5&&far.length;j++)picks.push(far[Math.floor((j+.5)*far.length/5)%far.length]);
+  const mix=[picks[2],picks[0],picks[4],picks[1],picks[3]].filter(x=>x!==undefined);
+  mix.forEach(u=>{if(!net.adj[ego].includes(u)){net.adj[ego].push(u);net.adj[u].push(ego);net.order[u].push(ego);}});
+  net.order[ego]=[...mix,...net.order[ego].filter(u=>!mix.includes(u))];cache=new Map();egoCache.clear();}
 
 /* ---------- canvas, fitted to the city ---------- */
 const cv=$("#cv"),ctx=cv.getContext("2d");
@@ -410,6 +436,16 @@ function curveArrow(v,u,t,color,alpha,width,z){ // soft curved arrow from v towa
   ctx.lineTo(ex-Math.cos(ang)*h*.6+Math.cos(ang+1.5708)*w,ey-Math.sin(ang)*h*.6+Math.sin(ang+1.5708)*w);
   ctx.lineTo(ex-Math.cos(ang)*h*.6-Math.cos(ang+1.5708)*w,ey-Math.sin(ang)*h*.6-Math.sin(ang+1.5708)*w);ctx.closePath();ctx.fill();ctx.globalAlpha=1;}
 
+function drawEgo(fx,z,cC){if(ego<0)return;const flying=new Set();if(fx)fx.shots.forEach(sh=>{if(!sh.landed)flying.add(sh.u);});
+  const tree=egoTree(shownK).filter(([v,u])=>state[u]===1&&!flying.has(u)),ink=css("--ink"),bg=css("--bg"),n=net.nodes[ego];
+  // soft glow under the whole chain, so it reads even at city scale
+  ctx.fillStyle=cC;ctx.globalAlpha=.18;ctx.beginPath();[ego,...tree.map(e=>e[1])].forEach(i=>{const m=net.nodes[i];ctx.moveTo(m.x+9*z,m.y);ctx.arc(m.x,m.y,9*z,0,7);});ctx.fill();ctx.globalAlpha=1;
+  tree.forEach(([v,u])=>{curveArrow(v,u,1,bg,1,4.2*z,z);curveArrow(v,u,1,cC,1,2.4*z,z);});
+  tree.forEach(([,u])=>{const m=net.nodes[u];ctx.fillStyle=cC;ctx.beginPath();ctx.arc(m.x,m.y,3.4*z,0,7);ctx.fill();});
+  ctx.fillStyle=cC;ctx.beginPath();ctx.arc(n.x,n.y,5.5*z,0,7);ctx.fill();
+  ctx.strokeStyle=ink;ctx.lineWidth=2*z;ctx.beginPath();ctx.arc(n.x,n.y,10*z,0,7);ctx.stroke();
+  ctx.save();ctx.font=`800 ${20*z}px Assistant, sans-serif`;ctx.textAlign="center";ctx.direction="rtl";ctx.lineWidth=6*z;ctx.strokeStyle=bg;ctx.lineJoin="round";
+  ctx.strokeText("אתם",n.x,n.y-16*z);ctx.fillStyle=ink;ctx.fillText("אתם",n.x,n.y-16*z);ctx.restore();}
 function draw(fx){
   const z=1/Math.sqrt(view.s),now=fx?fx.now:0,S=fit*view.s;
   ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=css("--bg");ctx.fillRect(0,0,cv.width,cv.height);
@@ -433,15 +469,17 @@ function draw(fx){
   dots(i=>state[i]===1&&st0[i]===1,cV,2.1);
   dots(i=>state[i]===1&&st0[i]!==1,cC,2.3);
   city.labels.forEach(([t,x,y,sz,al])=>label(t,x,y,sz*z,al));
+  drawEgo(fx,z,cC);
   if(picked>=0){const n=net.nodes[picked];ctx.strokeStyle=css("--ink");ctx.lineWidth=1.2*z;ctx.beginPath();ctx.arc(n.x,n.y,5*z,0,7);ctx.stroke();}
   if(!fx)return;
   fx.ripples.forEach(r=>{const life=r.ok?700:380,t=(now-r.t)/life;if(t<0||t>=1)return;const n=net.nodes[r.i];
     ctx.strokeStyle=r.ok?cC:cH;ctx.globalAlpha=(1-t)*.8;ctx.lineWidth=.9*z;ctx.beginPath();ctx.arc(n.x,n.y,(r.ok?2.5+8*t:2+4*t)*z,0,7);ctx.stroke();});
   ctx.globalAlpha=1;
   // arrows live only during the change: grow, land, fade
+  const egoSet=new Set(ego>=0?egoTree(shownK).map(e=>e[1]):[]);
   const ease=t=>1-Math.pow(1-t,3);
   fx.shots.forEach(sh=>{const t=(now-sh.t0)/sh.dur;if(t<0)return;
-    if(t<=1)curveArrow(sh.v,sh.u,ease(t),sh.ok?cC:cH,sh.ok?.95:.4,(sh.ok?.9:.6)*z,z);
+    if(t<=1)curveArrow(sh.v,sh.u,ease(t),sh.ok?cC:cH,sh.ok?.95:.4,(sh.ok?(egoSet.has(sh.u)?1.7:.9):.6)*z,z);
     else{const f=1-(now-sh.t0-sh.dur)/(sh.ok?900:350);if(f>0)curveArrow(sh.v,sh.u,1,sh.ok?cC:cH,(sh.ok?.55:.25)*f,(sh.ok?.8:.6)*z,z);}});
 }
 
@@ -500,10 +538,10 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCities();});
 $("#kMinus").addEventListener("click",()=>{setPlay(false);setK(shownK-1);});
 $("#kPlus").addEventListener("click",()=>{setPlay(false);setK(shownK+1);});
 document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(e.key==="ArrowUp"||e.key==="+"){setPlay(false);setK(shownK+1);}if(e.key==="ArrowDown"||e.key==="-"){setPlay(false);setK(shownK-1);}});
-$("#p").addEventListener("input",e=>{setPlay(false);nud=e.target.value/100;$("#po").textContent=e.target.value+"%";cache=new Map();snap(shownK);});
-$("#q").addEventListener("input",e=>{setPlay(false);q=e.target.value/100;$("#qo").textContent=e.target.value+"%";cache=new Map();snap(shownK);});
-$("#u").addEventListener("input",e=>{setPlay(false);U=e.target.value/100;$("#uo").textContent=e.target.value+"%";st0=initState(net,U);cache=new Map();snap(shownK);});
-$("#again").addEventListener("click",()=>{setPlay(false);seed=Math.floor(Math.random()*1e6);net=gen(seed);st0=initState(net,U);cache=new Map();view={s:1,tx:0,ty:0};snap(shownK);});
+$("#p").addEventListener("input",e=>{setPlay(false);nud=e.target.value/100;$("#po").textContent=e.target.value+"%";cache=new Map();pickEgo();snap(shownK);});
+$("#q").addEventListener("input",e=>{setPlay(false);q=e.target.value/100;$("#qo").textContent=e.target.value+"%";cache=new Map();pickEgo();snap(shownK);});
+$("#u").addEventListener("input",e=>{setPlay(false);U=e.target.value/100;$("#uo").textContent=e.target.value+"%";st0=initState(net,U);cache=new Map();pickEgo();snap(shownK);});
+$("#again").addEventListener("click",()=>{setPlay(false);seed=Math.floor(Math.random()*1e6);net=gen(seed);st0=initState(net,U);cache=new Map();pickEgo();view={s:1,tx:0,ty:0};snap(shownK);});
 /* ---------- explanations ---------- */
 const TIPS={
   start:()=>`<b>${(T0*100).toFixed(1)}%</b> מבעלי זכות הבחירה ${city.in} הצביעו בבחירות 2022, מתוך ${city.eSrc} בעלי זכות בחירה. ${city.note} ההדמיה מתחילה מהמספר הרשמי.`,
@@ -541,9 +579,16 @@ function setCity(id){setPlay(false);city=CITIES[id];T0=city.T0;E_TLV=city.E;PER=
   document.querySelectorAll(".cities button").forEach(b=>b.setAttribute("aria-selected",b.dataset.city===id));
   document.querySelectorAll("[data-only]").forEach(el=>el.hidden=el.dataset.only!==id);
   $("#howCity").textContent=`כל נקודה במפה מייצגת כ ${fmt(PER)} תושבים, מתוך ${city.eSrc} בעלי זכות בחירה ${city.in} בבחירות 2022. לכל אחד כ 8 חברים, כמעט כולם שכנים קרובים, ומעטים עם חבר בצד השני של העיר. כל מי שמצביע מדבר פעם אחת עם מספר החברים שבחרתם מבין אלה שבבית, וכל שיחה מצליחה בסיכוי שבהגדרות. בהגדרות אפשר גם לקבוע איזה חלק מהמצביעים מדבר עם חברים בכלל.`;
-  net=gen(seed);st0=initState(net,U);cache=new Map();view={s:1,tx:0,ty:0};closeTip();resize();snap(shownK);}
+  net=gen(seed);st0=initState(net,U);cache=new Map();pickEgo();view={s:1,tx:0,ty:0};closeTip();resize();snap(shownK);}
 
 /* ---------- guide ---------- */
+
+/* ---------- share a nudge with a friend ---------- */
+const SHARE_URL="https://govote.day";
+function shareText(){return `מחר בחירות. כבר תכננת מתי להצביע? אם משהו מקשה להגיע, תגיד לי ואעזור. ואם יש לך עוד חבר או שניים שעוד לא החליטו, תעביר להם. ככה כל אחד מזיז את העיר:`;}
+$("#shareBtn").addEventListener("click",async()=>{const text=shareText(),url=SHARE_URL+(cityId&&cityId!=="tlv"?"/#"+cityId:"");
+  if(navigator.share){try{await navigator.share({text,url});return;}catch(e){if(e&&e.name==="AbortError")return;}}
+  const a=document.createElement("a");a.href="https://wa.me/?text="+encodeURIComponent(text+" "+url);a.target="_blank";a.rel="noopener noreferrer";document.body.appendChild(a);a.click();a.remove();});
 // The city lives in the link as #tlv, #haifa, #modiin or #raanana.
 const ARTIFACT_URL="https://claude.ai/artifact/LC6ZPqoZmTLRC1hExQ6ZUj";
 let cityId="tlv";
