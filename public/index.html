@@ -35,11 +35,11 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
   .side>*{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
   .side>.bubble{padding:10px 12px}
   .mhead{order:0}
-  .numblock{order:1;padding-top:16px}
-  .leadline{order:2;margin:8px 0 14px}
+  .sentence{order:1;padding-top:14px}
+  .result{order:2;margin:0 18px;padding-left:0;padding-right:0}
   .stage{order:3;height:58svh;min-height:360px;flex:none}
-  .side>*:not(.numblock):not(.leadline):not(header){order:4}
-  .side>.control{padding-top:18px}
+  .side>*:not(.sentence):not(.result):not(header){order:4}
+  .side>.actions{padding-top:4px}
   .side>details:last-of-type{padding-bottom:28px}
   .mhead{display:block;order:-2;padding-block:14px 10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));background:var(--panel);border-bottom:1px solid var(--line)}
   .mtitle{font-family:var(--f-display);font-size:22px;line-height:1.15;margin-top:2px}
@@ -47,6 +47,34 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
   .side{border-inline-end:0;border-top:1px solid var(--line);padding-block:18px 28px;
     padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 }
+/* side panel: sentence, then its consequence, then what to do about it */
+h1{font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.1;margin:0;text-wrap:balance}
+.subtitle{margin:8px 0 14px;color:var(--muted);font-size:15px;line-height:1.5;max-width:34ch}
+.mhead .subtitle{margin:4px 0 10px;font-size:14px}
+.sentence{display:flex;flex-direction:column;gap:6px}
+.s1,.s2{margin:0;font-family:var(--f-display);font-size:22px;line-height:1.25;color:var(--ink)}
+.dial{display:flex;align-items:center;gap:14px}
+.dial button{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--conv);background:transparent;color:var(--conv);font:700 22px/1 var(--f-body);cursor:pointer;padding:0}
+.dial button:hover{background:var(--conv);color:#1A1405}
+.dial output{font-family:var(--f-body);font-size:64px;font-weight:800;line-height:1;color:var(--conv);min-width:44px;text-align:center;font-variant-numeric:tabular-nums}
+.dial .unit{font-family:var(--f-display);font-size:22px}
+.result{display:flex;flex-direction:column;gap:4px;padding-top:18px;border-top:1px solid var(--line)}
+.numrow{display:flex;align-items:flex-start}
+.big{font-family:var(--f-body);font-variant-numeric:tabular-nums;font-size:76px;font-weight:800;line-height:1;letter-spacing:-.02em;direction:ltr;unicode-bidi:isolate;display:inline-block}
+.big small{font-size:.4em;color:var(--muted);margin-inline-start:2px}
+.sub{margin:2px 0 0;color:var(--muted);font-size:14.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sub b{color:var(--ink);font-weight:700}
+.actions{display:flex;flex-direction:column;gap:6px}
+.cta{display:block;text-align:center;background:var(--conv);color:#1A1405;border-radius:10px;padding:12px 14px;font-weight:800;font-size:16px;text-decoration:none}
+.cta:hover{filter:brightness(1.06)}
+.play{align-self:flex-start;background:none;border:0;padding:6px 0;color:var(--muted);font:700 14px var(--f-body);cursor:pointer}
+.play:hover{color:var(--ink)}
+.chartbox{display:flex;flex-direction:column;gap:8px}
+.takeaway{margin:0;font-size:14.5px;line-height:1.55}
+.takeaway b{font-weight:800}
+.assume{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.toguide{display:block;color:var(--muted);font-weight:600;font-size:14px;text-underline-offset:3px}
+.toguide:hover{color:var(--ink)}
 .cities{display:flex;gap:5px;margin:4px 0 10px;flex-wrap:wrap}
 .cities button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:5px 11px;font:700 14px var(--f-body);cursor:pointer;white-space:nowrap}
 .cities button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -54,36 +82,10 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
 .sharecity:hover{color:var(--ink)}
 .citylink{display:inline-block;margin:-2px 0 10px;color:var(--ink);font-weight:700;font-size:14px;text-decoration:underline;text-decoration-color:var(--conv);text-underline-offset:4px}
 .citylink:hover{color:var(--conv)}
-.tag{margin:0 0 8px;color:var(--conv);font-weight:700;font-size:15px;line-height:1.4}
-.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:700}
-h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;margin:4px 0 6px;text-wrap:balance}
 .lede{color:var(--muted);margin:0;font-size:14.5px;max-width:34ch}
-.big{font-family:var(--f-body);font-variant-numeric:tabular-nums;font-size:72px;font-weight:800;line-height:1;letter-spacing:-.02em;direction:ltr;unicode-bidi:isolate;display:inline-block}
-.big small{font-size:.42em;color:var(--muted);margin-inline-start:2px}
-.sub{color:var(--muted);font-size:14.5px;margin-top:6px;min-height:22px}
-.sub b{color:var(--conv);font-weight:700}
-.control{display:flex;flex-direction:column;gap:12px}
-.qline{font-weight:700;font-size:16px}
-.leadline{margin:0;font-size:17px;line-height:2.1}
-.inl{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;margin:0 4px}
-.inl button{width:30px;height:30px;border-radius:50%;border:1px solid var(--conv);background:transparent;color:var(--conv);font:700 18px/1 var(--f-body);cursor:pointer;padding:0}
-.inl button:hover{background:var(--conv);color:#1A1405}
-.inl output{font-size:26px;font-weight:800;color:var(--ink);min-width:20px;text-align:center}
-.stepper{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
-.stepper .qline{white-space:nowrap;font-size:15.5px}
-.assume{font-size:13px;color:var(--muted)}
-.stepper button{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 22px var(--f-body);cursor:pointer}
-.stepper button:hover{border-color:var(--muted)}
-.stepper output{font-family:var(--f-body);font-size:38px;font-weight:800;min-width:34px;text-align:center}
-.stepper .unit{color:var(--muted);font-size:15px}
-.play{border:0;border-radius:10px;padding:11px 14px;background:var(--accent);color:#1A1405;font:800 15.5px var(--f-body);cursor:pointer}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
-.takeaway{margin:8px 0 0;font-size:14px;line-height:1.5}
-.takeaway b{color:var(--conv)}
-.numrow{display:flex;align-items:flex-start;gap:8px}
 .info{flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--muted);background:transparent;color:var(--muted);font:700 12px/1 Georgia,serif;font-style:italic;cursor:pointer;padding:0;vertical-align:middle}
 .info:hover,.info[aria-expanded="true"]{color:var(--bg);background:var(--conv);border-color:var(--conv)}
-.numrow .info{margin-top:10px}
 .bubble,.pop{position:fixed;z-index:40;max-width:280px;background:#1A2444;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.5;color:var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .pop{position:absolute}
 .bubble b,.pop b{color:var(--conv)}
@@ -103,10 +105,6 @@ input[type=range]{width:100%;accent-color:var(--accent);margin-top:6px}
 .tools button{min-width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:rgba(16,23,46,.85);color:var(--ink);font:600 17px var(--f-body);cursor:pointer;padding:0 10px}
 .tools button.w{font-size:13px}
 
-.cta{display:block;text-align:center;border:1px solid var(--conv);color:var(--conv);border-radius:10px;padding:10px 14px;font-weight:800;font-size:15.5px;text-decoration:none}
-.cta:hover{background:var(--conv);color:#1A1405}
-.toguide{display:block;color:var(--conv);font-weight:700;text-decoration:none;font-size:14.5px}
-.toguide:hover{text-decoration:underline}
 .guide{border-top:1px solid var(--line);background:var(--bg);padding-block:56px 64px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .gwrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:52px}
 .ghead h2{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.15;margin:8px 0 14px;text-wrap:balance}
@@ -158,26 +156,35 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
 </head>
 <body>
 <div class="app" dir="rtl" lang="he">
-  <div class="mhead"><div class="eyebrow">הדמיה · יום הבחירות</div><div class="mtitle">הפעם כולם יוצאים להצביע</div><div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div></div>
+  <div class="mhead"><div class="mtitle">הפעם כולם יוצאים להצביע</div><p class="subtitle">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p><div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div></div>
   <aside class="side">
     <header>
-      <div class="eyebrow">הדמיה · יום הבחירות</div>
       <h1>הפעם כולם יוצאים להצביע</h1>
+      <p class="subtitle">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע. הדמיה של מה שקורה כשכל מי שמצביע מדבר עם חברים שעוד בבית.</p>
       <div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div>
     </header>
-    <div class="numblock">
-      <div class="numrow"><div class="big" id="big">59.6<small>%</small></div><button class="info" data-tip="start" aria-label="מאיפה נקודת הפתיחה">i</button></div>
-      <div class="sub" id="sub"></div>
-    </div>
-    <p class="tag leadline">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע. נניח שכל אחד ידבר עם <span class="inl"><button id="kMinus" aria-label="פחות חברים">−</button><output id="ko">0</output><button id="kPlus" aria-label="יותר חברים">+</button></span> <span id="unit">חברים</span></p>
 
-    <div class="control">
-      <div class="assume" id="assume"></div>
-      <button class="play" id="run">הראו מה קורה מ 0 עד 5 חברים</button>
-      <a class="cta" href="list.html">עזרו לי לבחור עם מי לדבר ←</a>
+    <div class="sentence">
+      <p class="s1">נניח שכל אחד ידבר עם</p>
+      <div class="dial"><button id="kMinus" aria-label="פחות חברים">−</button><output id="ko" aria-live="polite">0</output><button id="kPlus" aria-label="יותר חברים">+</button><span class="unit" id="unit">חברים</span></div>
     </div>
 
-    <div><div class="chart" id="chart"></div><p class="takeaway" id="takeaway"></p></div>
+    <div class="result">
+      <p class="s2" id="resultHead">אחוז ההצבעה בתל אביב ב 2022</p>
+      <div class="numrow"><div class="big" id="big">59.6<small>%</small></div></div>
+      <p class="sub"><span id="sub"></span> <button class="info" data-tip="start" aria-label="מאיפה נקודת הפתיחה">i</button></p>
+    </div>
+
+    <div class="actions">
+      <a class="cta" href="list.html">עזרו לי לבחור עם מי לדבר</a>
+      <button class="play" id="run">▶ הראו מ 0 עד 5 חברים</button>
+    </div>
+
+    <div class="chartbox">
+      <div class="chart" id="chart"></div>
+      <p class="takeaway" id="takeaway"></p>
+      <p class="assume" id="assume"></p>
+    </div>
 
     <div class="legend">
       <span><i class="dot" style="background:var(--vote)"></i>הצביעו</span>
@@ -186,7 +193,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
       <span><i class="dot" style="background:var(--away);outline:1px solid var(--line)"></i>מחוץ להישג יד</span>
     </div>
 
-    <a class="toguide" href="#guide">איך מדברים עם חבר שעוד לא הצביע? ↓</a>
+    <a class="toguide" href="#guide">המספרים והמחקר שמאחורי ההדמיה</a>
     <details>
       <summary>הגדרות</summary>
       <div class="setting"><label for="p"><span>כמה מדברים עם חברים <button class="info" data-tip="p" aria-label="הסבר">i</button></span> <output id="po">100%</output></label><input type="range" id="p" min="0" max="100" step="10" value="100"></div>
@@ -215,8 +222,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
 <div class="guide" id="guide" dir="rtl" lang="he">
   <div class="gwrap">
     <header class="ghead">
-      <div class="eyebrow">מהכוונה לקלפי · להבין, לשאול, לעזור</div>
-      <h2>לפעמים מה שחסר הוא <span>שמישהו ישאל.</span></h2>
+      <h2>לפעמים מה שחסר הוא שמישהו ישאל.</h2>
       <p class="glead">ההדמיה למעלה מראה מה קורה כשכל אחד מדבר עם חבר או שניים. כאן: כמה אנשים נשארים בבית, השראה, ומה המחקר אומר.</p>
       <p class="gnote">עידוד השתתפות לכל אדם, בלי קשר לעמדה או למפלגה. הבחירה אם ולמי להצביע נשארת שלו.</p>
     </header>
@@ -426,7 +432,8 @@ function draw(fx){
 function seatsText(m){const r=Math.round(m);if(m<.95)return `כ ${m.toFixed(1)} מנדט`;if(r===1)return m<1?"כמעט מנדט אחד":"כמנדט אחד";return m<r?`כמעט ${r} מנדטים`:`כ ${r} מנדטים`;}
 function showNumbers(){const t=share(state),d=t-share(st0),add=d*E_TLV;
   $("#big").innerHTML=`${(t*100).toFixed(1)}<small>%</small>`;
-  $("#sub").innerHTML=add>0?`<b>+${fmt(add/1000)} אלף מצביעים</b>`:`אחוז ההצבעה ${city.in} ב 2022`;}
+  $("#resultHead").textContent=add>0?`ההצבעה ${city.in} תגיע ל`:`אחוז ההצבעה ${city.in} ב 2022`;
+  $("#sub").innerHTML=add>0?`מ ${(T0*100).toFixed(1)}%, <b>עוד ${fmt(add/1000)} אלף מצביעים</b>`:"נקודת הפתיחה של ההדמיה";}
 function drawChart(){
   const pts=[...Array(KMAX+1).keys()].map(kk=>[kk,stateFor(kk).share]),W=300,H=150,L=32,R=6,T=10,B=22,x=v=>L+v/KMAX*(W-L-R),y=v=>T+(1-(v-.5)/.5)*(H-T-B),ceil=1-Math.round(U*N)/N;
   let g=`<svg viewBox="0 0 ${W} ${H+14}" direction="ltr" role="img" aria-label="אחוז הצבעה לפי מספר החברים שכל אחד מדבר איתם">`;
@@ -439,8 +446,8 @@ function drawChart(){
   const c=pts[shownK];g+=`<circle cx="${x(c[0])}" cy="${y(c[1])}" r="5.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/></svg>`;
   $("#chart").innerHTML=g;
   const a=k=>fmt((stateFor(k).share-pts[0][1])*E_TLV/1000),top=pts[KMAX][1];
-  $("#takeaway").innerHTML=`כשכל אחד מדבר עם חבר אחד נוספים <b>כ ${a(1)} אלף קולות</b>, ועם שניים כ ${a(2)} אלף. מעבר לזה התוספת קטנה, והעקומה נעצרת סביב ${(top*100).toFixed(0)}%, קצת מתחת לגבול של ${Math.round((1-Math.round(U*N)/N)*100)}%: חלק מהאנשים נשארים בבית גם אחרי כמה שיחות.`;
-  $("#assume").textContent=`${nud<1?Math.round(nud*100)+"% מדברים · ":""}${q===.25?"רבע":Math.round(q*100)+"%"} מהשיחות מצליחות`;}
+  $("#takeaway").innerHTML=`חבר אחד מוסיף <b>${a(1)} אלף</b> מצביעים, שניים <b>${a(2)} אלף</b>. מעבר לזה כמעט כל מי שאפשר לשכנע כבר יצא.`;
+  $("#assume").textContent=`בהנחה ש${q===.25?"רבע":Math.round(q*100)+"%"} מהשיחות מצליחות${nud<1?` ו ${Math.round(nud*100)}% מהמצביעים מדברים`:""}. אפשר לשנות בהגדרות.`;}
 
 /* ---------- transitions ---------- */
 const fast=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -464,7 +471,7 @@ function goTo(kk,done){$("#pop").hidden=true;picked=-1;
 function setK(kk){kk=Math.max(0,Math.min(KMAX,kk));if(kk!==shownK)goTo(kk);}
 
 let playing=false;
-function setPlay(on){playing=on;$("#run").textContent=on?"עצירה":"הראו מה קורה מ 0 עד 5 חברים";}
+function setPlay(on){playing=on;$("#run").textContent=on?"■ עצירה":"▶ הראו מ 0 עד 5 חברים";}
 $("#run").addEventListener("click",()=>{if(playing){setPlay(false);return;}setPlay(true);snap(0);
   const next=()=>{if(!playing)return;if(shownK>=KMAX){setPlay(false);return;}goTo(shownK+1,()=>setTimeout(next,fast()?0:700));};setTimeout(next,fast()?0:700);});
 $("#kMinus").addEventListener("click",()=>{setPlay(false);setK(shownK-1);});
