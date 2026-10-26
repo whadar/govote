@@ -4,9 +4,9 @@
 
 ## הרצה
 
-קובץ אחד, בלי תלויות ובלי בנייה. פותחים את `index.html` בדפדפן.
+קובץ אחד, בלי תלויות ובלי בנייה. פותחים את `public/index.html` בדפדפן. באתר: [govote.day](https://govote.day).
 
-קישור ישיר לעיר: `index.html#tlv`, `#haifa`, `#modiin` או `#raanana`.
+קישור ישיר לעיר: `govote.day/#tlv`, `#haifa`, `#modiin` או `#raanana`.
 
 ## המודל
 
