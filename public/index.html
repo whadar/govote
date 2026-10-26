@@ -514,6 +514,8 @@ let cityId="tlv";
 document.querySelectorAll(".cities button").forEach(b=>b.addEventListener("click",()=>{cityId=b.dataset.city;setCity(cityId);try{history.replaceState(null,"","#"+cityId);}catch(_){}}));
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(CITIES[h]&&h!==cityId){cityId=h;setCity(h);}});
 const h0=(location.hash||"").slice(1);cityId=CITIES[h0]?h0:"tlv";setCity(cityId);
+// play the 0 to 5 run once on arrival, so the first thing people see is the city filling up
+setTimeout(()=>{if(!playing&&shownK===0)$("#run").click();},900);
 </script>
 
 </body>
