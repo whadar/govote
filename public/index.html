@@ -54,8 +54,11 @@ h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;m
 .sub b{color:var(--conv);font-weight:700}
 .control{display:flex;flex-direction:column;gap:12px}
 .qline{font-weight:700;font-size:16px}
-.stepper.intro{margin-top:-8px;flex-wrap:wrap;row-gap:6px}
-.stepper.intro .qline:first-child{flex-basis:100%;font-size:17px}
+.leadline{margin:-6px 0 0;font-size:17px;line-height:2.1}
+.inl{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;margin:0 4px}
+.inl button{width:30px;height:30px;border-radius:50%;border:1px solid var(--conv);background:transparent;color:var(--conv);font:700 18px/1 var(--f-body);cursor:pointer;padding:0}
+.inl button:hover{background:var(--conv);color:#1A1405}
+.inl output{font-size:26px;font-weight:800;color:var(--ink);min-width:20px;text-align:center}
 .stepper{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
 .stepper .qline{white-space:nowrap;font-size:15.5px}
 .assume{font-size:13px;color:var(--muted)}
@@ -145,20 +148,14 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
 </head>
 <body>
 <div class="app" dir="rtl" lang="he">
-  <div class="mhead"><div class="eyebrow">הדמיה · יום הבחירות</div><div class="mtitle">הפעם כולם יוצאים להצביע</div><div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div><div class="tag">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</div></div>
+  <div class="mhead"><div class="eyebrow">הדמיה · יום הבחירות</div><div class="mtitle">הפעם כולם יוצאים להצביע</div><div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div></div>
   <aside class="side">
     <header>
       <div class="eyebrow">הדמיה · יום הבחירות</div>
       <h1>הפעם כולם יוצאים להצביע</h1>
       <div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div>
-      <p class="tag">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p>
     </header>
-    <div class="stepper intro"><span class="qline">נניח שכל אחד ידבר עם</span>
-        <button id="kMinus" aria-label="פחות חברים">−</button>
-        <output id="ko">0</output>
-        <button id="kPlus" aria-label="יותר חברים">+</button>
-        <span class="qline" id="unit">חברים</span>
-      </div>
+    <p class="tag leadline">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע. נניח שכל אחד ידבר עם <span class="inl"><button id="kMinus" aria-label="פחות חברים">−</button><output id="ko">0</output><button id="kPlus" aria-label="יותר חברים">+</button></span> <span id="unit">חברים</span></p>
 
     <div>
       <div class="numrow"><div class="big" id="big">59.6<small>%</small></div><button class="info" data-tip="start" aria-label="מאיפה נקודת הפתיחה">i</button></div>
