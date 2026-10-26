@@ -466,7 +466,7 @@ function goTo(kk,done){$("#pop").hidden=true;picked=-1;
 function setK(kk){kk=Math.max(0,Math.min(KMAX,kk));if(kk!==shownK)goTo(kk);}
 
 let playing=false;
-function setPlay(on){playing=on;$("#run").textContent=on?"■ עצירה":"▶ הראו מ 0 עד 5 חברים";}
+function setPlay(on){playing=on;$("#run").hidden=on;$("#run").textContent="▶ הראו שוב מ 0 עד 5 חברים";}
 $("#run").addEventListener("click",()=>{if(playing){setPlay(false);return;}setPlay(true);snap(0);
   const next=()=>{if(!playing)return;if(shownK>=KMAX){setPlay(false);return;}goTo(shownK+1,()=>setTimeout(next,fast()?0:700));};setTimeout(next,fast()?0:700);});
 $("#kMinus").addEventListener("click",()=>{setPlay(false);setK(shownK-1);});
