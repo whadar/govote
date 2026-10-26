@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>עם מי כדאי לי לדבר?</title>
+<meta name="description" content="כמה שאלות קצרות שעוזרות לבחור עם מי לדבר לפני יום הבחירות, ומה להגיד לכל אחד.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Suez+One&family=Assistant:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a short list of yes/no cards on the right, your personal plan building up on the left. Same night palette as the simulation. */
+:root{
+  --bg:#0B1020; --panel:#10172E; --line:#222D4B; --ink:#EAF0FA; --muted:#8B97B2; --conv:#FFC93C;
+  --f-display:"Suez One","Assistant",Georgia,serif; --f-body:"Assistant","Segoe UI",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);text-align:right;
+  padding-block:28px 56px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+a{color:var(--conv);text-underline-offset:3px}
+.back{font-size:14px;font-weight:700;text-decoration:none}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:700}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.15;margin:6px 0 10px;text-wrap:balance}
+h1 span{color:var(--conv)}
+.lede{color:var(--muted);max-width:62ch;margin:0;font-size:17px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+h2{font-family:var(--f-display);font-weight:400;font-size:24px;margin:0 0 12px}
+.qs{display:flex;flex-direction:column;gap:10px}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:center}
+.q.on{border-color:var(--conv)}
+.q p{margin:0;font-weight:700;font-size:16.5px}
+.q small{display:block;color:var(--muted);font-weight:400;font-size:13.5px;margin-top:2px}
+.yn{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.yn button{border:0;background:transparent;color:var(--muted);font:700 14px var(--f-body);padding:6px 14px;cursor:pointer}
+.yn button[aria-pressed="true"]{background:var(--conv);color:#1A1405}
+.q input{grid-column:1/-1;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);font:15px var(--f-body);padding:8px 10px}
+.q input::placeholder{color:var(--muted)}
+.plan{position:sticky;top:16px;display:flex;flex-direction:column;gap:12px}
+@media (max-width:860px){.plan{position:static}}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--muted)}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.item .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rank{width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:800;flex:none;font-size:14px}
+.item h3{margin:0;font-size:17.5px}
+.who{color:var(--conv);font-weight:700}
+.item .why{color:var(--muted);font-size:14.5px;margin:0}
+.item ul{margin:0;padding-inline-start:20px;font-size:15px}
+.msg{border-inline-start:3px solid var(--conv);background:var(--bg);border-radius:0 8px 8px 0;padding:8px 12px;font-size:15.5px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:var(--conv);color:#1A1405;border:0;border-radius:8px;padding:7px 14px;font:700 14px var(--f-body);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.note{font-size:13.5px;color:var(--muted);margin:0}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 20px;border-radius:999px;font-weight:700;z-index:9}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--conv);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/">→ חזרה להדמיה</a>
+    <div class="eyebrow" style="margin-top:14px">הפעם כולם יוצאים להצביע</div>
+    <h1>עם מי <span>כדאי לי לדבר?</span></h1>
+    <p class="lede">כמה שאלות על האנשים סביבך. בסוף מקבלים רשימה מסודרת: עם מי להתחיל, מה להגיד, ובמה אפשר לעזור. אין צורך לדעת למי הם מצביעים, ואין צורך לשאול.</p>
+  </header>
+
+  <div class="cols">
+    <section>
+      <h2>האנשים סביבך</h2>
+      <div class="qs" id="qs"></div>
+      <p class="note" style="margin-top:12px">השמות שתכתבו נשארים רק בדף הפתוח אצלכם. שום דבר לא נשמר ולא נשלח.</p>
+    </section>
+    <section class="plan" aria-live="polite">
+      <h2>הרשימה שלך</h2>
+      <div id="plan"></div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+// Each question is a kind of person. Priority puts practical barriers first: they are the quickest to solve and a concrete plan helps most.
+const Q=[
+  {id:"care",p:1,q:"יש לך קרוב משפחה בבית חולים, בדיור מוגן או עם קושי בניידות?",hint:"הורה, סבא או סבתא, שכן מבוגר",
+   title:"קרוב שקשה לו להגיע",why:"כאן העזרה המעשית היא כל הסיפור: לברר איפה ואיך הוא יכול להצביע, ולארגן את הדרך.",
+   todo:["לברר מול ועדת הבחירות איפה הוא יכול להצביע, ואם יש קלפי במקום שבו הוא נמצא","לתאם הסעה הלוך וחזור, או ללוות אותו","לבדוק מה צריך להביא, ובעיקר תעודה מזהה"],
+   msg:"רציתי לבדוק איתך לגבי יום הבחירות. תרצה שאסיע אותך לקלפי ובחזרה? אני יכול לבדוק מראש איפה מצביעים ומתי הכי נוח."},
+  {id:"ride",p:2,q:"יש מישהו קרוב בלי רכב, או שהקלפי שלו רחוקה?",hint:"גר רחוק מהכתובת הרשומה, עבר דירה, בלי תחבורה נוחה",
+   title:"מישהו שצריך דרך להגיע",why:"לפעמים הדבר היחיד שחסר הוא טרמפ.",
+   todo:["לבדוק יחד את כתובת הקלפי לפי הכתובת הרשומה","להציע טרמפ בשעה קבועה","אם הקלפי בעיר אחרת, לתכנן את הנסיעה מראש"],
+   msg:"יש לך כבר דרך להגיע לקלפי? אני נוסע בכל מקרה, אשמח לאסוף אותך. איזו שעה מתאימה לך?"},
+  {id:"busy",p:3,q:"יש לך חברים עם ילדים קטנים, או שעובדים במשמרות?",hint:"הורים צעירים, אנשי רפואה, עובדי לילה",
+   title:"מישהו שהיום שלו עמוס",why:"הכוונה קיימת, חסר זמן. תוכנית עם שעה מוגדרת עוזרת הכי הרבה.",
+   todo:["לקבוע איתו שעה מוגדרת להצבעה","להציע לשמור על הילדים חצי שעה","להזכיר פעם אחת, בשעה שקבעתם"],
+   msg:"מתי בדיוק יוצא לך להצביע מחר? אם עוזר, אני יכול לשמור על הילדים חצי שעה."},
+  {id:"first",p:4,q:"יש מישהו שמצביע בפעם הראשונה?",hint:"בני 18 עד 20, סטודנטים, מי שעלה לארץ לאחרונה",
+   title:"מצביע בפעם הראשונה",why:"הכל חדש: איפה, איך ומה להביא. הסבר קצר מוריד הרבה היסוס.",
+   todo:["להראות לו איך מוצאים את הקלפי לפי הכתובת הרשומה","להזכיר להביא תעודה מזהה","להציע ללכת להצביע יחד"],
+   msg:"מחר זו הפעם הראשונה שלך בקלפי? בוא נבדוק יחד איפה הקלפי שלך. אפשר גם ללכת ביחד."},
+  {id:"past",p:5,q:"יש לך חברים שבעבר לא הצביעו?",hint:"גם אם לא אמרו את זה במפורש",
+   title:"חבר שלא הצביע בפעם הקודמת",why:"שיחה שעוזרת לתכנן מתי ואיך להגיע הראתה תוצאות בניסויים.",
+   todo:["לשאול אם הוא מתכנן להצביע, בלי לשפוט","לעבור יחד על שעה ודרך הגעה","להציע תזכורת אחת, רק אם הוא רוצה"],
+   msg:"היי, כבר תכננת אם ומתי להגיע לקלפי? אם משהו מקשה, אשמח לעזור. אין צורך לספר לי למי אתה מצביע."},
+  {id:"frust",p:6,q:"יש לך חבר שהביע תסכול ולא בטוח שיצביע?",hint:"״אין בשביל מי״, ״זה לא משנה כלום״",
+   title:"חבר מתוסכל",why:"כאן קודם מקשיבים. שכנוע ולחץ פחות עובדים, והבחירה נשארת שלו.",
+   todo:["לשאול מה מתסכל אותו ולהקשיב עד הסוף","לשתף למה לך חשוב להצביע, בלי ויכוח","אם הוא מסרב בבירור, לכבד את זה"],
+   msg:"שמעתי שאתה מתלבט אם בכלל להצביע. מה הכי מתסכל אותך? באמת מעניין אותי לשמוע."},
+  {id:"abroad",p:7,q:"יש מישהו קרוב שנמצא בחו״ל או רחוק ביום הבחירות?",hint:"טיול, עבודה, לימודים",
+   title:"מישהו שנמצא רחוק",why:"בדרך כלל אפשר להצביע רק בקלפי בארץ. שווה לבדוק אם הוא חוזר בזמן.",
+   todo:["לבדוק אם הוא חוזר לפני סגירת הקלפיות","אם כן, לתכנן איתו את ההגעה מהשדה או מהדרך"],
+   msg:"אתה חוזר לפני שהקלפיות נסגרות? אם כן, בוא נתכנן איך אתה מגיע להצביע בדרך."},
+  {id:"always",p:8,q:"יש לך חברים שתמיד מצביעים?",hint:"המעגל הקרוב, המשפחה",
+   title:"מי שמצביע בכל מקרה",why:"הם לא צריכים שכנוע. הם יכולים להצטרף אליך ולדבר עם חבר או שניים משלהם.",
+   todo:["לשלוח להם את ההדמיה ואת הדף הזה","לבקש מכל אחד לדבר עם חבר אחד שעוד בבית"],
+   msg:"אני מדבר מחר עם כמה חברים שעוד לא בטוחים אם יצביעו. תצטרף? מספיק חבר אחד או שניים. הנה דף קצר שעוזר: govote.day"}
+];
+const ans={},names={};
+const $=s=>document.querySelector(s);
+function esc(t){return t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+$("#qs").innerHTML=Q.map(x=>`<div class="q" id="q-${x.id}"><div><p>${x.q}</p><small>${x.hint}</small></div>
+  <div class="yn" role="group" aria-label="${x.q}"><button type="button" data-id="${x.id}" data-v="1" aria-pressed="false">כן</button><button type="button" data-id="${x.id}" data-v="0" aria-pressed="false">לא</button></div>
+  <input id="n-${x.id}" type="text" placeholder="שמות, אם תרצו (רק בשבילך)" aria-label="שמות עבור: ${x.title}" hidden></div>`).join("");
+document.querySelectorAll(".yn button").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.id,v=b.dataset.v==="1";ans[id]=v;
+  b.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("#q-"+id).classList.toggle("on",v);$("#n-"+id).hidden=!v;render();}));
+document.querySelectorAll(".q input").forEach(i=>i.addEventListener("input",()=>{names[i.id.slice(2)]=i.value.trim();render();}));
+function render(){
+  const list=Q.filter(x=>ans[x.id]).sort((a,b)=>a.p-b.p);
+  if(!list.length){$("#plan").innerHTML=`<div class="empty">ענו ״כן״ על מה שמתאים, והרשימה תיבנה כאן לפי סדר עדיפות: קודם מי שצריך עזרה מעשית, אחר כך מי שצריך שיחה.</div>`;return;}
+  $("#plan").innerHTML=list.map((x,i)=>`<article class="item"><div class="top"><span class="rank">${i+1}</span><h3>${x.title}</h3>${names[x.id]?`<span class="who">${esc(names[x.id])}</span>`:""}</div>
+    <p class="why">${x.why}</p><ul>${x.todo.map(t=>`<li>${t}</li>`).join("")}</ul>
+    <div class="msg" id="m-${x.id}">${x.msg}</div><div class="row"><button class="btn" type="button" data-copy="${x.id}">העתקת ההודעה</button></div></article>`).join("")
+    +`<div class="row"><button class="btn ghost" type="button" id="copyAll">העתקת כל הרשימה</button></div>
+      <p class="note">לפרטים רשמיים על הקלפי ועל נגישות: <a href="https://www.gov.il/he/departments/topics/faq-26" target="_blank" rel="noopener noreferrer">ועדת הבחירות ↗</a></p>`;
+  document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copy(document.getElementById("m-"+b.dataset.copy).textContent,"ההודעה הועתקה")));
+  $("#copyAll").addEventListener("click",()=>copy(list.map((x,i)=>`${i+1}. ${x.title}${names[x.id]?` (${names[x.id]})`:""}\n${x.todo.map(t=>"• "+t).join("\n")}\nהודעה: ${x.msg}`).join("\n\n"),"הרשימה הועתקה"));
+}
+let tt;function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2400);}
+function copy(text,ok){try{navigator.clipboard.writeText(text).then(()=>toast(ok),()=>toast("סמנו והעתיקו ידנית"));}catch(_){toast("סמנו והעתיקו ידנית");}}
+render();
+</script>
+</body>
+</html>
