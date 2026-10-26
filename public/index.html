@@ -41,24 +41,24 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
   .side>*:not(.sentence):not(.result):not(header){order:4}
   .side>.actions{padding-top:4px}
   .side>details:last-of-type{padding-bottom:28px}
-  .mhead{display:block;order:-2;padding-block:14px 10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));background:var(--panel);border-bottom:1px solid var(--line)}
-  .mtitle{font-family:var(--f-display);font-size:22px;line-height:1.15;margin-top:2px}
+  .mhead{display:block;order:-2;padding-block:14px 10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));background:var(--panel)}
+  .mtitle{font-family:var(--f-body);font-weight:800;font-size:22px;line-height:1.2;margin-top:2px}
   .side header{display:none}
-  .side{border-inline-end:0;border-top:1px solid var(--line);padding-block:18px 28px;
+  .side{border-inline-end:0;padding-block:18px 28px;
     padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 }
 /* side panel: sentence, then its consequence, then what to do about it */
-h1{font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-family:var(--f-body);font-weight:800;font-size:23px;line-height:1.2;margin:0}
 .subtitle{margin:8px 0 14px;color:var(--muted);font-size:15px;line-height:1.5;max-width:34ch}
 .mhead .subtitle{margin:4px 0 10px;font-size:14px}
 .sentence{display:flex;flex-direction:column;gap:6px}
-.s1,.s2{margin:0;font-family:var(--f-display);font-size:22px;line-height:1.25;color:var(--ink)}
+.s1,.s2{margin:0;font-family:var(--f-body);font-weight:700;font-size:18px;line-height:1.35;color:var(--ink)}
 .dial{display:flex;align-items:center;gap:14px}
 .dial button{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--conv);background:transparent;color:var(--conv);font:700 22px/1 var(--f-body);cursor:pointer;padding:0}
 .dial button:hover{background:var(--conv);color:#1A1405}
 .dial output{font-family:var(--f-body);font-size:64px;font-weight:800;line-height:1;color:var(--conv);min-width:44px;text-align:center;font-variant-numeric:tabular-nums}
-.dial .unit{font-family:var(--f-display);font-size:22px}
-.result{display:flex;flex-direction:column;gap:4px;padding-top:18px;border-top:1px solid var(--line)}
+.dial .unit{font-weight:700;font-size:18px}
+.result{display:flex;flex-direction:column;gap:4px}
 .numrow{display:flex;align-items:flex-start}
 .big{font-family:var(--f-body);font-variant-numeric:tabular-nums;font-size:76px;font-weight:800;line-height:1;letter-spacing:-.02em;direction:ltr;unicode-bidi:isolate;display:inline-block}
 .big small{font-size:.4em;color:var(--muted);margin-inline-start:2px}
@@ -92,7 +92,7 @@ h1{font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.1;m
 .pop .k{display:flex;align-items:center;gap:6px;font-weight:700;margin-bottom:2px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-inline-end:6px;vertical-align:0}
-details{border-top:1px solid var(--line);padding-top:12px;font-size:13.5px;color:var(--muted)}
+details{font-size:13.5px;color:var(--muted)}
 details+details{margin-top:-10px}
 summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:14px}
 details p{margin:8px 0 0}
@@ -160,7 +160,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{o
   <aside class="side">
     <header>
       <h1>הפעם כולם יוצאים להצביע</h1>
-      <p class="subtitle">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע. הדמיה של מה שקורה כשכל מי שמצביע מדבר עם חברים שעוד בבית.</p>
+      <p class="subtitle">לא משאירים אף אחד מאחור, מוודאים שכולם יוצאים להצביע.</p>
       <div class="cities" role="tablist" aria-label="עיר"><button role="tab" data-city="tlv">תל אביב</button><button role="tab" data-city="haifa">חיפה</button><button role="tab" data-city="modiin">מודיעין</button><button role="tab" data-city="raanana">רעננה</button></div>
     </header>
 
@@ -432,7 +432,7 @@ function draw(fx){
 function seatsText(m){const r=Math.round(m);if(m<.95)return `כ ${m.toFixed(1)} מנדט`;if(r===1)return m<1?"כמעט מנדט אחד":"כמנדט אחד";return m<r?`כמעט ${r} מנדטים`:`כ ${r} מנדטים`;}
 function showNumbers(){const t=share(state),d=t-share(st0),add=d*E_TLV;
   $("#big").innerHTML=`${(t*100).toFixed(1)}<small>%</small>`;
-  $("#resultHead").textContent=add>0?`ההצבעה ${city.in} תגיע ל`:`אחוז ההצבעה ${city.in} ב 2022`;
+  $("#resultHead").textContent=add>0?`בהדמיה, ההצבעה ${city.in} תגיע ל`:`אחוז ההצבעה ${city.in} ב 2022`;
   $("#sub").innerHTML=add>0?`מ ${(T0*100).toFixed(1)}%, <b>עוד ${fmt(add/1000)} אלף מצביעים</b>`:"נקודת הפתיחה של ההדמיה";}
 function drawChart(){
   const pts=[...Array(KMAX+1).keys()].map(kk=>[kk,stateFor(kk).share]),W=300,H=150,L=32,R=6,T=10,B=22,x=v=>L+v/KMAX*(W-L-R),y=v=>T+(1-(v-.5)/.5)*(H-T-B),ceil=1-Math.round(U*N)/N;
